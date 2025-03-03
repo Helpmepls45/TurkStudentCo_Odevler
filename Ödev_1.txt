@@ -1,0 +1,26 @@
+Fatih Mustafa ATKEYDİREN
+
+Cevaplar 
+
+1-) select first_name as FirstName ,last_name as LastName ,salary as Salary from employees
+
+Açıklama : İstenilen FirstName, LastName ve Salary kolon başlıkları employees tablosunda teknik ismi ile tutulduğu için başlıklara alias ataması yapılarak sorgu çekilmiştir.
+
+2-) select distinct department_id from employees 
+
+Açıklama : Çalışanların çalıştıkları departmanlar benzersiz olarak gösterilmiştir. Tekrar eden departman_id lerde ilk kayıt gösterilmektedir.
+
+3-) 
+
+select * from departments
+select * from employees where department_id = 6
+
+Açıklama : Departments tablosundan IT Departmanının departman id si bulunur. (Sorguda department_Name IT için department id 6 bulunur.) Çalışanların tablosunda departmanlar isim olarak değilde id olarak tutulduğu için için IT Departmanının idsi öğrenilir ve 2. sorguda çalışanlar tablosundan IT çalışanları filtrelenir.
+
+4-) select * from employees order by salary desc
+
+Açıklama : çalışanların maaş bilgileri Employees tablosunda salary kolonunda tutulmaktadır. Maaşların büyükten küçüğe doğru sıralanması için desc (Descending) komutu kullanılır.
+
+5-) select first_name || ' ' ||last_name as Full_name from employees
+
+Açıklama : Çalışanların isim bilgisi first_name kolonunda soy isim bilgisi last_name kolonunda tutulmaktadır. ||''|| aracılığı ile iki kolon concatenation yapılır ve as full_name komutu ile başlığı tarafımızca belirlenmiş bir kolonda gösterilir.

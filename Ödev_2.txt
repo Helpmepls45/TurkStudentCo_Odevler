@@ -1,0 +1,21 @@
+1-)
+
+select * from invoice 
+where invoice_id is null and 
+customer_id is null and 
+billing_address is null and 
+billing_city is null and 
+billing_state is null and 
+billing_country is null and 
+billingpostal_code is null and 
+total is null -- Total Row =0 çünkü tüm kolon değerleri boş olanları arıyoruz. Burada her bir kolondaki boş değerleri arıyoruz ancak kolonları tek tek sorgulasak dahi sadece billing_state ve billingpostal_code kolonlarında boş değerler bulunmakta. En az bir tane kolonda ilgili kayıtta dolu hücre olduğundan sorgumuzun sonucu boş gelmekte. zaten invoice_id primary key değeri olduğu için hiçbir zaman boş olamaz.
+
+2-)
+
+SELECT * ,total as total_old, (total * 2) as total_new
+FROM invoice order by total_new desc;  -- total kolonunun adını total_old olarak eski halini gösteriyoruz. Total kolonundaki değerleri 2 ile çarpıp total_new isimli kolonda gösteriyoruz ve order by total_new des komutu ile büyükten küçüğe sıralıyoruz.
+
+3-) 
+
+SELECT *,  concat (LEFT (billing_address,3) ,' - ' ,right(billing_address,4)) as acik_adres 
+from invoice where invoice_date >= '2013-08-01' AND invoice_date < '2013-09-01'; -- billing address kolonununun soldan 3 karakterini ve sağdan 4 karakterini alıp concat fonksiyonu ile birleştiriyoruz ve birlestirdiğimiz kolonu acik_adres olarak adlandıryoruz (nested function). invoice date kolonu tarih formatında bir kolon olduğu için logic operatorler ile 2013 yılı 8. aya ait kayıtları rahatlıkla bulabiliriz. Bunuda >= '2013-08-01' ve < '2013-09-01' ifadesiyle sağlıyoruz. 

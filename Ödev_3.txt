@@ -1,0 +1,40 @@
+1. sorunun cevabı 
+
+SELECT SUM(total) AS total_amount   - total kolonundaki verilerin toplamını total_amount kolonunda gösteriyoruz
+FROM invoice                  ---- invoice tablosundan çalışıyoruz
+WHERE billing_country = 'USA' --- faturalandırma ülkesi USA olan kayıtları çekmek için where sorgusu
+  AND EXTRACT(YEAR FROM invoice_date) = 2009;  -- invoice_date bir tarih kolonu olduğu için sorgumuzu extract year komutları ile çekiyoruz. 2009 yılına ait demek için = 2009 kullanıyoruz.
+  
+  
+2. sorunun cevabı 
+
+SELECT 
+    t.track_id, -- track tablosu t allias ile alındı bize track id lazım çünkü ilişkiyi bunun üzerinden kuracağız. parça isimlerini de göstereceğiz
+    t.name, 
+    p.playlist_id, -- playlist id p allias ile alındı. Burada name kolonu track tablosundada olduğu için allias olarak playlist_name alındı.
+    p.name AS playlist_name
+FROM 
+    track t
+JOIN 
+    playlisttrack pt ON t.track_id = pt.track_id  -- playlisttrack tablosunu pt olarak aldık. burada track tablosunun track id si ile playlisttablosunun track idsi aynı olan bilgileri birlestiriyoruz
+JOIN 
+    playlist p ON pt.playlist_id = p.playlist_id  -- playlist tablosundaki playlist id ile playlisttrack tablosundaki id yi joinliyoruz.
+	
+	
+3. sorunun cevabı 
+
+SELECT 
+    t.track_id, -- track tablosu t olsun
+    t.name AS track_name, --- name kolonu birden fazla tabloda olduğu için allias atadık
+    ar.name AS artist_name, -- artist tablosu ar olsun.
+    t.milliseconds AS track_duration 
+FROM 
+    track t
+JOIN 
+    album a ON t.album_id = a.album_id   -- album tablosu a, track tablosunun album id si ile album tablosunun album id kolonlarına eşit olan değerler birleştiriliyor.
+JOIN 
+    artist ar ON a.artist_id = ar.artist_id -- album tablosundaki artist_id ile artist tablosundaki artist_id bilgileri eşit olan veriler birleştiriliyor
+WHERE 
+    a.title = 'Let There Be Rock'  -- album tablosunda title bilgisi 'Let There Be Rock' olan veriler birleştirilmesi için where sorgusu
+ORDER BY 
+    t.milliseconds DESC;  -- azalan sırada görüntülemek için order by desc komutu
